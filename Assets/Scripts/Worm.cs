@@ -10,9 +10,12 @@ public class Worm : MonoBehaviour
     [SerializeField] float _jumpSpeed = 5f;
     [SerializeField] Animator _animator;
     [SerializeField] Transform _wormSprite;
+
+    private bool _isGround;
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && _isGround)
         {
             _rigidbody.velocity += new Vector2(0, _jumpSpeed);
             _animator.SetBool("Grounded", false);
@@ -37,11 +40,14 @@ public class Worm : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        _isGround = true;
+
         _animator.SetBool("Grounded", true);
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        _isGround = false;
         _animator.SetBool("Grounded", false);
     }
 

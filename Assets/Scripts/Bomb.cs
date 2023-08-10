@@ -21,7 +21,8 @@ public class Bomb : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (_dead) return;
+        if (_dead)
+            return;
         _cut.transform.position = transform.position;
         Invoke(nameof(DoCut), 0.001f);
         

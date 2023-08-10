@@ -6,6 +6,8 @@ public class ColliderRenderer : MonoBehaviour
 {
     [SerializeField] PolygonCollider2D _collider;
     [SerializeField] MeshFilter _meshFilter;
+    [SerializeField] MeshFilter _backMesh;
+
 
     private void Update()
     {
@@ -14,16 +16,13 @@ public class ColliderRenderer : MonoBehaviour
             CreateMesh();
         }
     }
+
     private void OnValidate()
     {
-        CreateMesh();
+        var mesh = CreateMesh();
+        if (_backMesh)
+            _backMesh.mesh = mesh;
     }
-    public void CreateMesh()
-    {
-        Mesh mesh = _collider.CreateMesh(true, true);
-        _meshFilter.mesh = mesh;
-    }
-
     private void OnDrawGizmos()
     {
         for (int p = 0; p < _collider.pathCount; p++)
@@ -33,6 +32,12 @@ public class ColliderRenderer : MonoBehaviour
                 Handles.Label(_collider.transform.TransformPoint(_collider.GetPath(p)[i]), i.ToString());
             }
         }
+    }
+    public Mesh CreateMesh()
+    {
+        Mesh mesh = _collider.CreateMesh(true, true);
+        _meshFilter.mesh = mesh;
+        return mesh;
     }
 
 }
