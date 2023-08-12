@@ -115,9 +115,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8610083742008990342}
+  - component: {fileID: 1803751067000261170}
   - component: {fileID: 6661076151291706377}
   - component: {fileID: 5771953297863197253}
-  - component: {fileID: 1803751067000261170}
   m_Layer: 6
   m_Name: Worm
   m_TagString: Untagged
@@ -141,8 +141,33 @@ Transform:
   - {fileID: 2721254529074822916}
   - {fileID: 4538911804137530268}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1803751067000261170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158318169459815096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b29c47c6e3b3224fab30dda410967c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 100
+  _speed: 2
+  _jumpSpeed: 5
+  _moveDistance: 10
+  _animator: {fileID: 4352244309377788207}
+  _wormSprite: {fileID: 2721254529074822916}
+  _rigidbody: {fileID: 5771953297863197253}
+  _onUpdateHealth:
+    m_PersistentCalls:
+      m_Calls: []
+  _onUpdateMoveProgress:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!70 &6661076151291706377
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -205,23 +230,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1803751067000261170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1158318169459815096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b29c47c6e3b3224fab30dda410967c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 5771953297863197253}
-  _speed: 2
-  _jumpSpeed: 5
-  _animator: {fileID: 4352244309377788207}
-  _wormSprite: {fileID: 2721254529074822916}
 --- !u!1 &1235730577424528520
 GameObject:
   m_ObjectHideFlags: 0
