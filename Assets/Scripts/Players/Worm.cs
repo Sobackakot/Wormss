@@ -43,19 +43,10 @@ public class Worm : MonoBehaviour, IDamage
         _onUpdateHealth.Invoke(_curretHealth / _health);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && _isGround)
-        {
-            _rigidbody.velocity += new Vector2(0, _jumpSpeed);
-            _animator.SetBool("Grounded", false);
-        }
-    }
 
-    private void FixedUpdate()
+    public void Move(float horizontal)
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        if(horizontal != 0)
+        if (horizontal != 0)
             _wormSprite.localScale = new Vector3(-horizontal, 1f, 1f);
         if (horizontal != 0 && _curretDistance < _moveDistance)
         {
@@ -72,10 +63,18 @@ public class Worm : MonoBehaviour, IDamage
         }
     }
 
+    public void Jump(bool jump)
+    {
+        if (jump && _isGround)
+        {
+            _rigidbody.velocity += new Vector2(0, _jumpSpeed);
+            _animator.SetBool("Grounded", false);
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         _isGround = true;
-
         _animator.SetBool("Grounded", true);
     }
 
