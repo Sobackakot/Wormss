@@ -148,7 +148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48355680}
   m_LocalRotation: {x: -0, y: -0, z: 1, w: -0.0000004172325}
-  m_LocalPosition: {x: -0.049, y: 0.203, z: 0}
+  m_LocalPosition: {x: -0.523, y: 0.261, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6296,7 +6296,19 @@ MonoBehaviour:
   _rigidbody: {fileID: 1383186447}
   _onUpdateHealth:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2004983094}
+        m_TargetAssemblyTypeName: FieldUI, Assembly-CSharp
+        m_MethodName: UpdateValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _onUpdateMoveProgress:
     m_PersistentCalls:
       m_Calls: []
@@ -7290,6 +7302,17 @@ PrefabInstance:
 --- !u!114 &2004983093 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4343506956626979951, guid: 3e1f81782397be044bf3da782b162c10, type: 3}
+  m_PrefabInstance: {fileID: 2004983092}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c75b3d13655cce4581b2d043d086307, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2004983094 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6813839617947077907, guid: 3e1f81782397be044bf3da782b162c10, type: 3}
   m_PrefabInstance: {fileID: 2004983092}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
