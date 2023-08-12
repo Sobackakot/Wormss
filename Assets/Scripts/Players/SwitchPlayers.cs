@@ -24,20 +24,12 @@ public class SwitchPlayers : MonoBehaviour
         {
             shotEnemy.isActiveGame = false;
             shotEnemy.isShotingOnTarget = false;
-            StartCoroutine(StartPlayerCoroutine());
-            StartCoroutine(StartEnemyCoroutine());
+            StartCoroutine(StartPlayerCoroutine()); 
         } 
     }  
     private IEnumerator StartPlayerCoroutine()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         throwingPlayer.isActiveGame = true; 
-    }
-    private IEnumerator StartEnemyCoroutine()
-    {
-        yield return new WaitForSeconds(20);
-        throwingPlayer.isActiveGame = false;
-        throwingPlayer.isShooting = false;
-        shotEnemy.isActiveGame = true;
-    }
+    } 
 }
