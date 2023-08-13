@@ -42,7 +42,6 @@ public class Shot : SwitchEntity
         yield return new WaitForSeconds(3);
         ShotOnTarget();
         _corotine = null;
-
     }
 
     private void ShotOnTarget()
