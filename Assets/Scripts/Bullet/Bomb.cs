@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
+    [Min(1)]
     [SerializeField] private int _damage;
+    [Min(1)]
+    [SerializeField] private float _timeDestroy;
     [Header("Reference")]
     [SerializeField] private Rigidbody2D _rigidbody;
     [SerializeField] private GameObject _explosionPrefab;
@@ -10,14 +13,18 @@ public class Bomb : MonoBehaviour
     private Cutter _cut;
     private bool _dead;
 
-    public void SetVelocity(Vector2 value) {
-        _rigidbody.velocity = value;
-        _rigidbody.AddTorque(Random.Range(-8f,8f));
+    public event System.Action<Bomb> OnHit;
+
+    private void Reset()
+    {
+        _damage = 10;
+        _timeDestroy = 5f;
     }
 
     private void Start()
     {
         _cut = FindObjectOfType<Cutter>();
+        Invoke("Explosion", _timeDestroy);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -25,8 +32,7 @@ public class Bomb : MonoBehaviour
         if (collision.collider.TryGetComponent(out Worm worm))
         {
             worm.TakeDamage(_damage);
-            Destroy(gameObject);
-            Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+            Explosion();
         }
         else if (!_dead)
         {
@@ -35,12 +41,23 @@ public class Bomb : MonoBehaviour
             _dead = true;
         }
     }
+    public void SetVelocity(Vector2 value)
+    {
+        _rigidbody.velocity = value;
+        _rigidbody.AddTorque(Random.Range(-8f, 8f));
+    }
 
-    void DoCut() 
+    private void DoCut() 
     {
         _cut.DoCut();
+        Explosion();
+    }
+
+    private void Explosion()
+    {
         Destroy(gameObject);
         Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+        OnHit?.Invoke(this);
     }
 
 }
