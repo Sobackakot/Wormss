@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Throwing : MonoBehaviour
 {
+    [SerializeField] private int _mask;
     [SerializeField] private float _sencetivity = 0.01f;
     [SerializeField] private float _speedMultiplier = 0.03f;
     [Header("Reference")]
@@ -40,6 +41,7 @@ public class Throwing : MonoBehaviour
             _renderer.enabled = false;
             var newBomb = _bombPrefab.Create(transform.position, Quaternion.identity);
             newBomb.SetVelocity(velocity);
+            newBomb.gameObject.layer = _mask;
             return newBomb;
         }
         return null;
