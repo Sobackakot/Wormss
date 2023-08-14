@@ -16,7 +16,7 @@ public class SwitchPlayers : MonoBehaviour
     private float _progress = 0f;
     private SwitchEntity _currentPlayer;
 
-    private List<SwitchEntity> _accesEntity = new List<SwitchEntity>();
+    [SerializeField] private List<SwitchEntity> _accesPlayer = new List<SwitchEntity>();
 
     private void OnValidate()
     {
@@ -49,10 +49,11 @@ public class SwitchPlayers : MonoBehaviour
         _onUpdateTimer.Invoke(_timeRound);
         foreach (var part in _parts)
         {
+            part.OnComplite -= SwitchGame;
             part.Exit();
         }
-        _accesEntity.Clear();
-        _accesEntity.AddRange(_parts);
+        _accesPlayer.Clear();
+        _accesPlayer.AddRange(_parts);
         SwitchGame();
     }
 
@@ -61,8 +62,7 @@ public class SwitchPlayers : MonoBehaviour
         _progress = 0f;
         if (entity)
         {
-            
-            _accesEntity.Remove(entity);
+            _accesPlayer.Remove(entity);
             entity.OnComplite -= SwitchGame;
         } 
         _currentPlayer = GetNextEntity();
@@ -72,11 +72,11 @@ public class SwitchPlayers : MonoBehaviour
 
     private SwitchEntity GetNextEntity()
     {
-        if (_accesEntity.Count == 0)
+        if (_accesPlayer.Count == 0)
         {
-            _accesEntity.AddRange(_parts);
+            _accesPlayer.AddRange(_parts);
         }
-        return _accesEntity[0];
+        return _accesPlayer[0];
     }
 
 }

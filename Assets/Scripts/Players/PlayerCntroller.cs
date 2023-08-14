@@ -10,6 +10,7 @@ public class PlayerCntroller : SwitchEntity
     public GameObject arrow;
     public GameObject gun;
     private Coroutine _coroutine;
+
     private float horizontal { get; set; }
     private void Update()
     {
