@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Reflection;
 using UnityEngine;
 
 public class PlayerCntroller : SwitchEntity
@@ -12,6 +11,7 @@ public class PlayerCntroller : SwitchEntity
     private Coroutine _coroutine;
 
     private float horizontal { get; set; }
+
     private void Update()
     {
         _worm.Jump(Input.GetKeyDown(KeyCode.Space));

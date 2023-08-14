@@ -1,9 +1,6 @@
 using System.Collections;
 using UnityEngine.Events;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-using System.Reflection;
-using Unity.VisualScripting.Dependencies.Sqlite;
 
 public class Worm : MonoBehaviour, IDamage
 {
@@ -27,6 +24,7 @@ public class Worm : MonoBehaviour, IDamage
     private bool _isGround;
     private float _curretHealth;
     private float _curretDistance;
+    private Vector2 _starPostion;
 
     public event System.Action OnDead;
 
@@ -38,15 +36,13 @@ public class Worm : MonoBehaviour, IDamage
         _moveDistance = 10f;
     }
 
-    private void OnValidate()
+    private void Awake()
     {
+        _starPostion = transform.position;
         ResetPlayer();
     }
 
-    private void Awake()
-    {
-        ResetPlayer();
-    } 
+
     public void Move(float horizontal)
     {
         if (horizontal != 0)
@@ -90,9 +86,11 @@ public class Worm : MonoBehaviour, IDamage
     public void ResetPlayer()
     {
         _isDead = false;
+        _rigidbody.velocity = Vector2.zero;
         _curretHealth = _health;
         _onUpdateHealth.Invoke(_curretHealth / _health);
         ResetDistance();
+        transform.position = _starPostion;
     }
 
     public void ResetDistance()
