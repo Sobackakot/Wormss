@@ -16,7 +16,7 @@ public class SwitchPlayers : MonoBehaviour
     private float _progress = 0f;
     private SwitchEntity _currentPlayer;
 
-    [SerializeField] private List<SwitchEntity> _accesPlayer = new List<SwitchEntity>();
+    private List<SwitchEntity> _accesPlayer = new List<SwitchEntity>();
 
     private void OnValidate()
     {
