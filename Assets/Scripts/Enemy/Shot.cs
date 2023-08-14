@@ -7,6 +7,9 @@ public class Shot : SwitchEntity
     [SerializeField] private int _mask;
     [SerializeField] private BombHolder _bombPrefab;
 
+    [SerializeField] public GameObject gun;
+    [SerializeField] public GameObject arrow;
+
     private Algoritm mathf;
     private ShotDirection track;
 
@@ -22,16 +25,23 @@ public class Shot : SwitchEntity
     public override void Enter()
     {
         if (_corotine == null)
+        {
+            gun.gameObject.SetActive(true);
+            arrow.gameObject.SetActive(true);
             _corotine = StartCoroutine(ShotCoroutine());
+        }
+            
     }
 
     public override void Exit()
     {
         if (!_isShooting)
         {
+            gun.gameObject.SetActive(false);
+            arrow.gameObject.SetActive(false);
             CompliteSteap();
             if (_corotine != null)
-            {
+            { 
                 StopCoroutine(_corotine);
                 _corotine = null;
             }

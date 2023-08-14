@@ -6,7 +6,7 @@ public class ShotDirection : MonoBehaviour
     [SerializeField] public Transform enemySprite;
     [SerializeField] public Transform pointer;
     [SerializeField] public Transform target;
-    [SerializeField] public float titleAngles;
+    [SerializeField] public float titleAngles; 
 
     public Vector3 direction;
     public Vector3 newDirection;
