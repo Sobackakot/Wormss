@@ -11,10 +11,10 @@ public class SwitchPlayers : MonoBehaviour
     [Header("Reference")]
     [SerializeField] private SwitchEntity[] _parts;
     [Header("Event")]
-    [SerializeField] private UnityEvent<int> _onUpdateTimer;
+    [SerializeField] private UnityEvent<int> _onUpdateTimer; 
 
     private float _progress = 0f;
-    private SwitchEntity _curretEntity;
+    private SwitchEntity _currentPlayer;
 
     private List<SwitchEntity> _accesEntity = new List<SwitchEntity>();
 
@@ -30,7 +30,7 @@ public class SwitchPlayers : MonoBehaviour
     }
 
     private void Awake()
-    {
+    { 
         Restart();
     }
 
@@ -40,7 +40,7 @@ public class SwitchPlayers : MonoBehaviour
         _onUpdateTimer.Invoke(_timeRound - (int)(_progress * _timeRound));
         if (_progress >= 1f)
         {
-            _curretEntity.Exit();
+            _currentPlayer.Exit();
         }
     }
 
@@ -61,12 +61,13 @@ public class SwitchPlayers : MonoBehaviour
         _progress = 0f;
         if (entity)
         {
+            
             _accesEntity.Remove(entity);
             entity.OnComplite -= SwitchGame;
-        }
-        _curretEntity = GetNextEntity();
-        _curretEntity.OnComplite += SwitchGame;
-        _curretEntity.Enter();
+        } 
+        _currentPlayer = GetNextEntity();
+        _currentPlayer.OnComplite += SwitchGame; 
+        _currentPlayer.Enter();
     }
 
     private SwitchEntity GetNextEntity()

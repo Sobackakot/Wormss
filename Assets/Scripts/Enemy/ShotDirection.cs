@@ -4,7 +4,6 @@ using UnityEngine;
 public class ShotDirection : MonoBehaviour
 {
     [SerializeField] public Transform enemySprite;
-    [SerializeField] public Transform gunSprite;
     [SerializeField] public Transform pointer;
     [SerializeField] public Transform target;
     [SerializeField] public float titleAngles;

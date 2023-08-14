@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine.Events;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
+using System.Reflection;
+using Unity.VisualScripting.Dependencies.Sqlite;
 
 public class Worm : MonoBehaviour, IDamage
 {
@@ -43,8 +46,7 @@ public class Worm : MonoBehaviour, IDamage
     private void Awake()
     {
         ResetPlayer();
-    }
-
+    } 
     public void Move(float horizontal)
     {
         if (horizontal != 0)
