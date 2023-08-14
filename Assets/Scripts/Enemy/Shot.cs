@@ -1,44 +1,63 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Shot : MonoBehaviour
+[RequireComponent(typeof(ShotDirection), typeof(Algoritm))]
+public class Shot : SwitchEntity
 {
-    [SerializeField] Rigidbody2D _bombPrefab;
-    [HideInInspector] public bool isActiveGame = false;
-    [HideInInspector] public bool isShotingOnTarget =false;
-    private bool isFiring = false;
+    [SerializeField] private int _mask;
+    [SerializeField] private BombHolder _bombPrefab;
+
     private Algoritm mathf;
     private ShotDirection track;
-    
+
+    private bool _isShooting;
+    private Coroutine _corotine;
+
     private void Awake()
     {
         track = GetComponentInParent<ShotDirection>();
         mathf = GetComponentInParent<Algoritm>();
-    } 
-    private void Update()
-    {
-        if (!isFiring && isActiveGame)
-        {  
-            isFiring = true;
-            StartCoroutine(ShotCoroutine()); 
-        } 
     }
-    private void ShotOnTarget()
+
+    public override void Enter()
     {
-        Rigidbody2D newBomb = Instantiate(_bombPrefab, track.pointer.position, track.pointer.rotation) as Rigidbody2D;
-        Vector2 velocity = track.pointer.up * mathf.speedV;
-        newBomb.velocity = velocity;
-        newBomb.AddTorque(Random.Range(-8f, 8f)); 
-        isShotingOnTarget = true;
+        if (_corotine == null)
+            _corotine = StartCoroutine(ShotCoroutine());
     }
+
+    public override void Exit()
+    {
+        if (!_isShooting)
+        {
+            CompliteSteap();
+            if (_corotine != null)
+            {
+                StopCoroutine(_corotine);
+                _corotine = null;
+            }
+        }
+    }
+
     private IEnumerator ShotCoroutine()
     {
         yield return new WaitForSeconds(3);
-        if (!isShotingOnTarget)
-        { 
-            ShotOnTarget();
-        }
-        isFiring = false; 
+        ShotOnTarget();
+        _corotine = null;
+    }
+
+    private void ShotOnTarget()
+    {
+        var bomb = _bombPrefab.Create(track.pointer.position, track.pointer.rotation);
+        bomb.gameObject.layer = _mask;
+        bomb.SetVelocity(track.pointer.up * mathf.speedV);
+        bomb.OnHit += CompliteShoot;
+        _isShooting = true;
+    }
+
+    private void CompliteShoot(Bomb bomb)
+    {
+        bomb.OnHit -= CompliteShoot;
+        _isShooting = false;
+        Exit();
     }
 }

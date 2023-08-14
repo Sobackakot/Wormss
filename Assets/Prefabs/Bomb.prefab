@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3348539931435737142}
+  - component: {fileID: 2548028380138200706}
   - component: {fileID: 3348539931435737145}
   - component: {fileID: 1838867013107962990}
-  - component: {fileID: 2548028380138200706}
   m_Layer: 8
   m_Name: Bomb
   m_TagString: Bullet
@@ -35,6 +35,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2548028380138200706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3348539931435737147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3594127c4c3aa2f45919e02ca6bbce60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 10
+  _timeDestroy: 3
+  _rigidbody: {fileID: 1838867013107962990}
+  _explosionPrefab: {fileID: 2773333339186338914, guid: 7fb3a78449f66554e8045319fdea62d9, type: 3}
 --- !u!58 &3348539931435737145
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -97,21 +113,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2548028380138200706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3348539931435737147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3594127c4c3aa2f45919e02ca6bbce60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _damage: 10
-  _rigidbody: {fileID: 1838867013107962990}
-  _explosionPrefab: {fileID: 2773333339186338914, guid: 7fb3a78449f66554e8045319fdea62d9, type: 3}
 --- !u!1 &3348539933408502303
 GameObject:
   m_ObjectHideFlags: 0
