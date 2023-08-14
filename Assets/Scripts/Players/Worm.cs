@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine.Events;
 using UnityEngine;
 
@@ -19,9 +20,12 @@ public class Worm : MonoBehaviour, IDamage
     [SerializeField] private UnityEvent<float> _onUpdateHealth;
     [SerializeField] private UnityEvent<float> _onUpdateMoveProgress;
 
+    private bool _isDead;
     private bool _isGround;
     private float _curretHealth;
     private float _curretDistance;
+
+    public event System.Action OnDead;
 
     private void Reset()
     {
@@ -33,16 +37,13 @@ public class Worm : MonoBehaviour, IDamage
 
     private void OnValidate()
     {
-        _curretHealth = _health;
-        _onUpdateMoveProgress?.Invoke(1 - _curretDistance / _moveDistance);
+        ResetPlayer();
     }
 
     private void Awake()
     {
-        _curretHealth = _health;
-        _onUpdateHealth.Invoke(_curretHealth / _health);
+        ResetPlayer();
     }
-
 
     public void Move(float horizontal)
     {
@@ -86,13 +87,32 @@ public class Worm : MonoBehaviour, IDamage
 
     public void ResetPlayer()
     {
+        _isDead = false;
+        _curretHealth = _health;
+        _onUpdateHealth.Invoke(_curretHealth / _health);
+        ResetDistance();
+    }
+
+    public void ResetDistance()
+    {
         _curretDistance = 0f;
         _onUpdateMoveProgress.Invoke(1 - _curretDistance / _moveDistance);
     }
 
     public void TakeDamage(int damage)
     {
-        _curretHealth = Mathf.Clamp(_curretHealth-damage, 0, _curretHealth);
+        _curretHealth = Mathf.Clamp(_curretHealth - damage, 0, _curretHealth);
         _onUpdateHealth.Invoke(_curretHealth / _health);
+        if (_curretHealth == 0 && !_isDead)
+        {
+            _isDead = true;
+            StartCoroutine(Dead(1));
+        }
+    }
+
+    private IEnumerator Dead(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        OnDead?.Invoke();
     }
 }

@@ -25,7 +25,7 @@ public class PlayerCntroller : SwitchEntity
     public override void Enter()
     {
         enabled = true;
-        _worm.ResetPlayer();
+        _worm.ResetDistance();
     }
 
     public override void Exit()

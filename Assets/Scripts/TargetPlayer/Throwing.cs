@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class Throwing : MonoBehaviour
 {
-    [HideInInspector] public bool isActiveGame = false;
-
-    [SerializeField] private Renderer _renderer;
     [SerializeField] private float _sencetivity = 0.01f;
     [SerializeField] private float _speedMultiplier = 0.03f;
-    [SerializeField] private Bomb _bombPrefab;
+    [Header("Reference")]
+    [SerializeField] private Renderer _renderer;
+    [SerializeField] private BombHolder _bombPrefab;
     [SerializeField] private Transform _pointerLine;
 
     Vector3 mouseStart;
@@ -39,7 +38,7 @@ public class Throwing : MonoBehaviour
             Vector3 delta = Input.mousePosition - mouseStart;
             Vector3 velocity = delta * _speedMultiplier;
             _renderer.enabled = false;
-            Bomb newBomb = Instantiate(_bombPrefab, transform.position, Quaternion.identity);
+            var newBomb = _bombPrefab.Create(transform.position, Quaternion.identity);
             newBomb.SetVelocity(velocity);
             return newBomb;
         }

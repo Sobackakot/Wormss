@@ -31,22 +31,29 @@ public class SwitchPlayers : MonoBehaviour
 
     private void Awake()
     {
-        _onUpdateTimer.Invoke(0);
-        foreach (var part in _parts)
-        {
-            part.Exit();
-        }
-        SwitchGame();
+        Restart();
     }
 
     private void Update()
     {
         _progress = Mathf.Clamp01(_progress + Time.deltaTime / _timeRound);
-        _onUpdateTimer.Invoke(30 - (int)(_progress * _timeRound));
+        _onUpdateTimer.Invoke(_timeRound - (int)(_progress * _timeRound));
         if (_progress >= 1f)
         {
             _curretEntity.Exit();
         }
+    }
+
+    public void Restart()
+    {
+        _onUpdateTimer.Invoke(_timeRound);
+        foreach (var part in _parts)
+        {
+            part.Exit();
+        }
+        _accesEntity.Clear();
+        _accesEntity.AddRange(_parts);
+        SwitchGame();
     }
 
     public void SwitchGame(SwitchEntity entity = null)

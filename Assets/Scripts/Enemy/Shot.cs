@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(ShotDirection), typeof(Algoritm))]
 public class Shot : SwitchEntity
 {
-    [SerializeField] private Bomb _bombPrefab;
+    [SerializeField] private BombHolder _bombPrefab;
 
     private Algoritm mathf;
     private ShotDirection track;
@@ -46,7 +46,7 @@ public class Shot : SwitchEntity
 
     private void ShotOnTarget()
     {
-        var bomb = Instantiate(_bombPrefab, track.pointer.position, track.pointer.rotation) as Bomb;
+        var bomb = _bombPrefab.Create(track.pointer.position, track.pointer.rotation);
         bomb.SetVelocity(track.pointer.up * mathf.speedV);
         bomb.OnHit += CompliteShoot;
         _isShooting = true;
