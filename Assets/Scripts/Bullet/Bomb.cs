@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
+    private AudioManager audioManager;
+
     [Min(1)]
     [SerializeField] private int _damage;
     [Min(1)]
@@ -23,6 +25,7 @@ public class Bomb : MonoBehaviour
 
     private void Start()
     {
+        audioManager = AudioManager.instanceAudio;
         _cut = FindObjectOfType<Cutter>();
         Invoke("Explosion", _timeDestroy);
     }
@@ -33,10 +36,13 @@ public class Bomb : MonoBehaviour
         {
             worm.TakeDamage(_damage);
             Explosion();
+            audioManager.PlayBoomSound();
         }
         else if (!_dead)
         {
             _cut.transform.position = transform.position;
+            audioManager.PlayBoomSound();
+            audioManager.PlayTrolingSound();
             Invoke(nameof(DoCut), 0.001f);
             _dead = true;
         }
@@ -44,7 +50,7 @@ public class Bomb : MonoBehaviour
     public void SetVelocity(Vector2 value)
     {
         _rigidbody.velocity = value;
-        _rigidbody.AddTorque(Random.Range(-8f, 8f));
+        _rigidbody.AddTorque(Random.Range(-8f, 8f)); 
     }
 
     private void DoCut() 
@@ -56,7 +62,7 @@ public class Bomb : MonoBehaviour
     private void Explosion()
     {
         Destroy(gameObject);
-        Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
+        Instantiate(_explosionPrefab, transform.position, Quaternion.identity);  
         OnHit?.Invoke(this);
     }
 

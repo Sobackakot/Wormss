@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Throwing : MonoBehaviour
 {
+    private AudioManager audioManager;
     [SerializeField] private int _mask;
     [SerializeField] private float _sencetivity = 0.01f;
     [SerializeField] private float _speedMultiplier = 0.03f;
@@ -14,6 +15,7 @@ public class Throwing : MonoBehaviour
 
     private void Start()
     {
+        audioManager = AudioManager.instanceAudio;
         _renderer.enabled = false;
     }
 
@@ -42,6 +44,7 @@ public class Throwing : MonoBehaviour
             var newBomb = _bombPrefab.Create(transform.position, Quaternion.identity);
             newBomb.SetVelocity(velocity);
             newBomb.gameObject.layer = _mask;
+            audioManager.PlayFireSound();
             return newBomb;
         }
         return null;

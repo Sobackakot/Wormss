@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(ShotDirection), typeof(Algoritm))]
 public class Shot : SwitchEntity
 {
+    private AudioManager audioManager;
     [SerializeField] private int _mask;
     [SerializeField] private BombHolder _bombPrefab;
 
@@ -18,6 +19,7 @@ public class Shot : SwitchEntity
 
     private void Awake()
     {
+        audioManager = AudioManager.instanceAudio;
         track = GetComponentInParent<ShotDirection>();
         mathf = GetComponentInParent<Algoritm>();
     }
@@ -62,6 +64,7 @@ public class Shot : SwitchEntity
         bomb.SetVelocity(track.pointer.up * mathf.speedV);
         bomb.OnHit += CompliteShoot;
         _isShooting = true;
+        audioManager.PlayFireSound();
     }
 
     private void CompliteShoot(Bomb bomb)

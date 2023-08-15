@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 public class PlayerCntroller : SwitchEntity
-{
+{ 
     [SerializeField] private Worm _worm;
     [SerializeField] private Throwing _trowing;
     [SerializeField] private Transform _wormSprite;
@@ -10,10 +10,10 @@ public class PlayerCntroller : SwitchEntity
     public GameObject gun;
     private Coroutine _coroutine;
 
-    private float horizontal { get; set; }
-
+    private float horizontal { get; set; } 
     private void Update()
-    {
+    {   
+
         _worm.Jump(Input.GetKeyDown(KeyCode.Space));
         _trowing.PointerLine();
         if (Input.GetMouseButtonUp(0))

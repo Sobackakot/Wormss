@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Worm : MonoBehaviour, IDamage
 {
+    private AudioManager audioManager;
     [Min(1)]
     [SerializeField] private int _health;
     [Min(0)]
@@ -18,7 +19,7 @@ public class Worm : MonoBehaviour, IDamage
     [SerializeField] private Rigidbody2D _rigidbody;
     [Header("Events")]
     [SerializeField] private UnityEvent<float> _onUpdateHealth;
-    [SerializeField] private UnityEvent<float> _onUpdateMoveProgress;
+    [SerializeField] private UnityEvent<float> _onUpdateMoveProgress; 
 
     private bool _isDead;
     private bool _isGround;
@@ -38,6 +39,7 @@ public class Worm : MonoBehaviour, IDamage
 
     private void Awake()
     {
+        audioManager = AudioManager.instanceAudio;
         _starPostion = transform.position;
         ResetPlayer();
     }
@@ -68,6 +70,7 @@ public class Worm : MonoBehaviour, IDamage
         {
             _rigidbody.velocity += new Vector2(0, _jumpSpeed);
             _animator.SetBool("Grounded", false);
+            audioManager.PlayJumpSound(); 
         }
     }
 
@@ -75,6 +78,7 @@ public class Worm : MonoBehaviour, IDamage
     {
         _isGround = true;
         _animator.SetBool("Grounded", true);
+        audioManager.PlayJumpEndSound();
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -103,6 +107,7 @@ public class Worm : MonoBehaviour, IDamage
     {
         _curretHealth = Mathf.Clamp(_curretHealth - damage, 0, _curretHealth);
         _onUpdateHealth.Invoke(_curretHealth / _health);
+        audioManager.PlayDamageSound();
         if (_curretHealth == 0 && !_isDead)
         {
             _isDead = true;
@@ -114,5 +119,6 @@ public class Worm : MonoBehaviour, IDamage
     {
         yield return new WaitForSeconds(delay);
         OnDead?.Invoke();
+        audioManager.PlayDeadSound(); 
     }
 }
