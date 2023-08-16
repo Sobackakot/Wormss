@@ -38,12 +38,14 @@ public class Worm : MonoBehaviour, IDamage
     }
 
     private void Awake()
-    {
-        audioManager = AudioManager.instanceAudio;
+    {  
         _starPostion = transform.position;
         ResetPlayer();
     }
-
+    private void Start()
+    {
+        audioManager = AudioManager.instanceAudio;
+    }
 
     public void Move(float horizontal)
     {
