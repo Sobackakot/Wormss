@@ -5239,9 +5239,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 7
+  _smoothTime: 0.2
+  _moveRangeX: {x: -18.6, y: 21.64}
+  _moveRangeY: {x: 0.51, y: 8.26}
   _zoomSpeed: 2
   _zoom: {x: 2, y: 7}
-  _smoothTime: 0.2
   _camera: {fileID: 519420031}
 --- !u!4 &661190559
 Transform:
@@ -5251,7 +5253,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 661190557}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.26, y: 4.02, z: 0}
+  m_LocalPosition: {x: -0.5, y: 5.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5430,11 +5432,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2205488138712177250, guid: 00a6ba5031672c44992d70465352247d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.9870365
+      value: -5.94
       objectReference: {fileID: 0}
     - target: {fileID: 2205488138712177250, guid: 00a6ba5031672c44992d70465352247d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.66894865
+      value: -0.19
       objectReference: {fileID: 0}
     - target: {fileID: 2205488138712177250, guid: 00a6ba5031672c44992d70465352247d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5698,11 +5700,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6914062847732093016, guid: e18fa103226fb9a499ae579ee913feca, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.092963
+      value: 8.69
       objectReference: {fileID: 0}
     - target: {fileID: 6914062847732093016, guid: e18fa103226fb9a499ae579ee913feca, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.44
+      value: -0.33
       objectReference: {fileID: 0}
     - target: {fileID: 6914062847732093016, guid: e18fa103226fb9a499ae579ee913feca, type: 3}
       propertyPath: m_LocalPosition.z

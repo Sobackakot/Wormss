@@ -20,11 +20,11 @@ public class Worm : MonoBehaviour, IDamage
     [SerializeField] private UnityEvent<float> _onUpdateHealth;
     [SerializeField] private UnityEvent<float> _onUpdateMoveProgress;
 
-    private bool _isDead;
     private bool _isGround;
     private float _curretHealth;
     private float _curretDistance;
     private Vector2 _starPostion;
+    private Coroutine _corotine;
 
     public event System.Action OnDead;
 
@@ -41,7 +41,6 @@ public class Worm : MonoBehaviour, IDamage
         _starPostion = transform.position;
         ResetPlayer();
     }
-
 
     public void Move(float horizontal)
     {
@@ -85,7 +84,8 @@ public class Worm : MonoBehaviour, IDamage
 
     public void ResetPlayer()
     {
-        _isDead = false;
+        if (_corotine != null)
+            StopCoroutine(_corotine);
         _rigidbody.velocity = Vector2.zero;
         _curretHealth = _health;
         _onUpdateHealth.Invoke(_curretHealth / _health);
@@ -103,16 +103,24 @@ public class Worm : MonoBehaviour, IDamage
     {
         _curretHealth = Mathf.Clamp(_curretHealth - damage, 0, _curretHealth);
         _onUpdateHealth.Invoke(_curretHealth / _health);
-        if (_curretHealth == 0 && !_isDead)
+        if (_curretHealth == 0)
+            Dead();
+    }
+
+    public void Dead()
+    {
+        if (_corotine == null)
         {
-            _isDead = true;
-            StartCoroutine(Dead(1));
+            _corotine = StartCoroutine(SendDead(1));
         }
     }
 
-    private IEnumerator Dead(float delay)
+    private IEnumerator SendDead(float delay)
     {
         yield return new WaitForSeconds(delay);
         OnDead?.Invoke();
+        _corotine = null;
     }
+
+
 }

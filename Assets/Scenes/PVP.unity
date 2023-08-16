@@ -5242,7 +5242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b29c47c6e3b3224fab30dda410967c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 20
+  _health: 100
   _speed: 2
   _jumpSpeed: 5
   _moveDistance: 10
@@ -6014,9 +6014,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 7
+  _smoothTime: 0.2
+  _moveRangeX: {x: -18.6, y: 21.64}
+  _moveRangeY: {x: 0.51, y: 8.26}
   _zoomSpeed: 2
   _zoom: {x: 2, y: 7}
-  _smoothTime: 0.2
   _camera: {fileID: 519420031}
 --- !u!4 &661190559
 Transform:
@@ -7032,7 +7034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b29c47c6e3b3224fab30dda410967c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 20
+  _health: 100
   _speed: 2
   _jumpSpeed: 5
   _moveDistance: 10

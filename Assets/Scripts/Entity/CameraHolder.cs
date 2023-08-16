@@ -4,11 +4,14 @@ public class CameraHolder : MonoBehaviour
 {
     [Min(1)]
     [SerializeField] private float _moveSpeed;
+    [Range(0, 1f)]
+    [SerializeField] private float _smoothTime = 0.2f;
+    [SerializeField] private Vector2 _moveRangeX;
+    [SerializeField] private Vector2 _moveRangeY;
+    [Header("ZoomSetting")]
     [Min(1)]
     [SerializeField] private float _zoomSpeed;
     [SerializeField] private Vector2 _zoom;
-    [Range(0,1f)]
-    [SerializeField] private float _smoothTime = 0.2f;
     [Header("Reference")]
     [SerializeField] private Camera _camera;
 
@@ -57,7 +60,10 @@ public class CameraHolder : MonoBehaviour
 
     private void MoveToPosition()
     {
-        transform.position = Vector2.SmoothDamp(transform.position, _target,
+        var position = Vector2.SmoothDamp(transform.position, _target,
             ref _velocity, _smoothTime);
+        position.x = Mathf.Clamp(position.x, _moveRangeX.x, _moveRangeX.y);
+        position.y = Mathf.Clamp(position.y, _moveRangeY.x, _moveRangeY.y);
+        transform.position = position;
     }
 }
