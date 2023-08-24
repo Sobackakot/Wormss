@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {   
     public static AudioManager instanceAudio { get; private set; }   
-    private AudioSource audioSource;
+
+    [SerializeField]private AudioSource audioSource;
     [SerializeField] private AudioClip audioStart;
     [SerializeField] private AudioClip audioJump;
     [SerializeField] private AudioClip audioJumpEnd;
@@ -14,6 +16,10 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip audioTroling;
     [SerializeField] private AudioClip audioDead;
     [SerializeField] private AudioClip audioBoom;
+
+    [SerializeField] private Slider voicesVolumeSlider;
+    [SerializeField] private float _volume = 1;
+
     private void Awake()
     {
         if (instanceAudio == null)
@@ -26,11 +32,20 @@ public class AudioManager : MonoBehaviour
             Destroy(this);
             return;
         } 
-        audioSource = GetComponent<AudioSource>();
+        audioSource = gameObject.AddComponent<AudioSource>();
+    }
+    public void SetVoisVolume(float volume)
+    {
+        _volume = volume;
     }
     public void Start()
     {
         PlayStartSound();
+    }
+    public void Update()
+    {
+        _volume = voicesVolumeSlider.value;
+        audioSource.volume = _volume;
     }
     private void PlayStartSound()
     {

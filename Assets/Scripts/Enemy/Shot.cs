@@ -72,5 +72,5 @@ public class Shot : SwitchEntity
         bomb.OnHit -= CompliteShoot;
         _isShooting = false;
         Exit();
-    }
+    } 
 }

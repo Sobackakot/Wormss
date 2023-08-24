@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SwichMusic : MonoBehaviour
-{  
-    private AudioSource m_AudioSource;
-    [SerializeField] private AudioClip[] audioArray;
+{
+    [SerializeField] private AudioSource m_AudioSource;
+    [SerializeField] private AudioClip[] audioArray; 
+
+    [SerializeField] private Slider musicVolumeSlider;
+    [SerializeField] private float _volumeMus = 1;
+
     private int index = 0;
-    private bool isPlaying = false;
 
     private void Awake()
-    { 
-        m_AudioSource = GetComponent<AudioSource>();
+    {
+        m_AudioSource = gameObject.AddComponent<AudioSource>();
     }
 
     private IEnumerator Start()
@@ -19,41 +23,28 @@ public class SwichMusic : MonoBehaviour
         PlayNextMusic();
         yield return null;
     }
+    private void Update()
+    {
+        _volumeMus = musicVolumeSlider.value;
+        m_AudioSource.volume = _volumeMus;
+    }
 
     private void PlayNextMusic()
     {
-        m_AudioSource.clip = audioArray[index];
-        m_AudioSource.Play();
-        StartCoroutine(WaitForMusicToFinish());
+        m_AudioSource.PlayOneShot(audioArray[index]);
     }
-
-    private IEnumerator WaitForMusicToFinish()
+    public void PouseMusic()
     {
-        isPlaying = true;
-
-        while (m_AudioSource.isPlaying)
-        {
-            yield return null;
-        }
-
-        isPlaying = false;
-        index++;
-        if (index >= audioArray.Length)
-            index = 0;
-        PlayNextMusic();
-    }
-
-    public void TurnOnMusic()
-    {
-        if (!isPlaying)
-            PlayNextMusic();
-    }
-
-    public void TurnOffMusic()
-    {
+        enabled = false;
         m_AudioSource.Stop();
-        StopAllCoroutines();
-        isPlaying = false;
+    }
+    public void PlayingMusic()
+    {
+        enabled = true;
+        m_AudioSource.Play();
+    }
+    public void SetMusicVolume(float volume)
+    {
+        _volumeMus = volume;
     }
 }
-

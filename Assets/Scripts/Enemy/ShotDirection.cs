@@ -33,5 +33,5 @@ public class ShotDirection : MonoBehaviour
             directionX = Mathf.Abs(enemySprite.localScale.x) * (newDirection > 0 ? -1 : 1);
             enemySprite.localScale = new Vector3(directionX, 1f, 1f);    
         }
-    }
+    } 
 }
