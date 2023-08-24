@@ -6,6 +6,7 @@ public class PauseMenu : UIMenu
 
     public void ReturnGame()
     {
+        Time.timeScale = 1f;
         _gameSwitcher.Unpause();
     }
 
@@ -17,5 +18,9 @@ public class PauseMenu : UIMenu
     public void ExitMainMenu()
     {
         _gameSwitcher.ExitMainMenu();
+    }
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
     }
 }
